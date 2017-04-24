@@ -185,6 +185,7 @@
     <Compile Include="SqlQueueAttribute.cs" />
     <Compile Include="SqlQueueAttributeBindingProvider.cs" />
     <Compile Include="SqlQueueJobHostConfigurationExtensions.cs" />
+    <Compile Include="SqlQueueListener.cs" />
     <Compile Include="SqlQueueTriggerAttribute.cs" />
     <Compile Include="SqlQueueTriggerAttributeBindingProvider.cs" />
     <Compile Include="SqlQueueTriggerValue.cs" />
@@ -200,6 +201,11 @@
       <Project>{e6f59990-f3a1-469f-a9d8-6d529121d385}</Project>
       <Name>WebJobs.Extensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\dequeue.sql" />
+    <Content Include="scripts\enqueue.sql" />
+    <Content Include="scripts\setup.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
