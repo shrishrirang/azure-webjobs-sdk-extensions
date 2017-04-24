@@ -281,6 +281,7 @@
     <Compile Include="Samples\NotificationHubSamples.cs" />
     <Compile Include="Samples\SampleSamples.cs" />
     <Compile Include="Samples\SendGridSamples.cs" />
+    <Compile Include="Samples\SqlQueueSample.cs" />
     <Compile Include="Samples\TableSamples.cs" />
     <Compile Include="Samples\TimerSamples.cs" />
     <Compile Include="Samples\TwilioSamples.cs" />
@@ -321,6 +322,10 @@
     <ProjectReference Include="..\Sample.Extension\Sample.Extension.csproj">
       <Project>{55edaba0-8d31-43c9-ab3c-2a40d0eff28a}</Project>
       <Name>Sample.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebJobs.Extensions.SqlQueue\WebJobs.Extensions.SqlQueue.csproj">
+      <Project>{9fbe2e52-b0bc-469b-b609-106da4e0577f}</Project>
+      <Name>WebJobs.Extensions.SqlQueue</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebJobs.Extensions.Twilio\WebJobs.Extensions.Twilio.csproj">
       <Project>{65563c23-75b9-4f48-93e0-9a9fa2141cf9}</Project>

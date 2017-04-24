@@ -7,5 +7,10 @@ namespace Sample.Extension
     {
         // TODO: Define the default type that your trigger binding
         // binds to (the type representing the trigger event).
+
+        public SampleTriggerValue()
+        {
+            
+        }
     }
 }

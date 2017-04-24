@@ -3,6 +3,7 @@
 
 namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 {
+    // FIXME: Needed?
     public class SqlQueueTriggerValue
     {
         public SqlQueueTriggerValue()
@@ -11,5 +12,10 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
         }
         // TODO: Define the default type that your trigger binding
         // binds to (the type representing the trigger event).
+
+        public override string ToString()
+        {
+            return "FIXME";
+        }
     }
 }
