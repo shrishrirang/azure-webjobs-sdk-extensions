@@ -43,14 +43,14 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                     "Can't bind SqlQueueAttribute to type '{0}'.", parameter.ParameterType));
             }
 
-            return Task.FromResult<IBinding>(new SampleBinding(parameter));
+            return Task.FromResult<IBinding>(new SqlQueueBinding(parameter));
         }
 
-        private class SampleBinding : IBinding
+        private class SqlQueueBinding : IBinding
         {
             private readonly ParameterInfo _parameter;
 
-            public SampleBinding(ParameterInfo parameter)
+            public SqlQueueBinding(ParameterInfo parameter)
             {
                 _parameter = parameter;
             }
@@ -62,14 +62,14 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 
             public Task<IValueProvider> BindAsync(BindingContext context)
             {
-                return Task.FromResult<IValueProvider>(new SampleValueBinder(_parameter));
+                return Task.FromResult<IValueProvider>(new SqlQueueValueBinder(_parameter));
             }
 
             public Task<IValueProvider> BindAsync(object value, ValueBindingContext context)
             {
                 // TODO: Perform any conversions on the incoming value
                 // E.g., it may be a Dashboard invocation string value
-                return Task.FromResult<IValueProvider>(new SampleValueBinder(_parameter));
+                return Task.FromResult<IValueProvider>(new SqlQueueValueBinder(_parameter));
             }
 
             public ParameterDescriptor ToParameterDescriptor()
@@ -91,11 +91,11 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
             // to get a bunch of built in bindings for free (mapping from string to
             // other param types), or you may chose to derive from ValueBinder and
             // implement everything yourself
-            private class SampleValueBinder : StreamValueBinder
+            private class SqlQueueValueBinder : StreamValueBinder
             {
                 private readonly ParameterInfo _parameter;
 
-                public SampleValueBinder(ParameterInfo parameter)
+                public SqlQueueValueBinder(ParameterInfo parameter)
                     : base(parameter)
                 {
                     _parameter = parameter;

@@ -9,7 +9,7 @@ namespace Microsoft.Azure.WebJobs
 {
     public static class SqlQueueJobHostConfigurationExtensions
     {
-        public static void UseSample(this JobHostConfiguration config)
+        public static void UseSqlQueue(this JobHostConfiguration config)
         {
             if (config == null)
             {
@@ -17,10 +17,10 @@ namespace Microsoft.Azure.WebJobs
             }
 
             // Register our extension configuration provider
-            config.RegisterExtensionConfigProvider(new SampleExtensionConfig());
+            config.RegisterExtensionConfigProvider(new SqlQueueExtensionConfig());
         }
 
-        private class SampleExtensionConfig : IExtensionConfigProvider
+        private class SqlQueueExtensionConfig : IExtensionConfigProvider
         {
             public void Initialize(ExtensionConfigContext context)
             {

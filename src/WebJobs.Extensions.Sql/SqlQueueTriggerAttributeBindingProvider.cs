@@ -45,15 +45,15 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                     "Can't bind SqlQueueTriggerAttribute to type '{0}'.", parameter.ParameterType));
             }
 
-            return Task.FromResult<ITriggerBinding>(new SampleTriggerBinding(context.Parameter));
+            return Task.FromResult<ITriggerBinding>(new SqlQueueTriggerBinding(context.Parameter));
         }
 
-        private class SampleTriggerBinding : ITriggerBinding
+        private class SqlQueueTriggerBinding : ITriggerBinding
         {
             private readonly ParameterInfo _parameter;
             private readonly IReadOnlyDictionary<string, Type> _bindingContract;
 
-            public SampleTriggerBinding(ParameterInfo parameter)
+            public SqlQueueTriggerBinding(ParameterInfo parameter)
             {
                 _parameter = parameter;
                 _bindingContract = CreateBindingDataContract();
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                 // E.g. convert from Dashboard invoke string to our trigger
                 // value type
                 SqlQueueTriggerValue queueTriggerValue = value as SqlQueueTriggerValue;
-                IValueBinder valueBinder = new SampleValueBinder(_parameter, queueTriggerValue);
+                IValueBinder valueBinder = new SqlQueueValueBinder(_parameter, queueTriggerValue);
                 return Task.FromResult<ITriggerData>(new TriggerData(valueBinder, GetBindingData(queueTriggerValue)));
             }
 
@@ -86,7 +86,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 
             public ParameterDescriptor ToParameterDescriptor()
             {
-                return new SampleTriggerParameterDescriptor
+                return new SqlQueueTriggerParameterDescriptor
                 {
                     Name = _parameter.Name,
                     DisplayHints = new ParameterDisplayHints
@@ -119,7 +119,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                 return contract;
             }
 
-            private class SampleTriggerParameterDescriptor : TriggerParameterDescriptor
+            private class SqlQueueTriggerParameterDescriptor : TriggerParameterDescriptor
             {
                 public override string GetTriggerReason(IDictionary<string, string> arguments)
                 {
@@ -128,11 +128,11 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                 }
             }
 
-            private class SampleValueBinder : ValueBinder
+            private class SqlQueueValueBinder : ValueBinder
             {
                 private readonly object _value;
 
-                public SampleValueBinder(ParameterInfo parameter, SqlQueueTriggerValue value)
+                public SqlQueueValueBinder(ParameterInfo parameter, SqlQueueTriggerValue value)
                     : base(parameter.ParameterType)
                 {
                     _value = value;
