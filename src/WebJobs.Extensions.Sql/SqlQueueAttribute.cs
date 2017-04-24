@@ -6,9 +6,9 @@ using System;
 namespace Microsoft.Azure.WebJobs
 {
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class SampleTriggerAttribute : Attribute
+    public sealed class SqlQueueAttribute : Attribute
     {
-        public SampleTriggerAttribute(string path)
+        public SqlQueueAttribute(string path)
         {
             Path = path;
         }

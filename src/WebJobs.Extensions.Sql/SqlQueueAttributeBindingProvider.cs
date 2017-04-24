@@ -12,11 +12,11 @@ using Microsoft.Azure.WebJobs.Extensions.Bindings;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Host.Protocols;
 
-namespace Sample.Extension
+namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 {
-    internal class SampleAttributeBindingProvider : IBindingProvider
+    internal class SqlQueueAttributeBindingProvider : IBindingProvider
     {
-        public SampleAttributeBindingProvider()
+        public SqlQueueAttributeBindingProvider()
         {
             
         }
@@ -29,7 +29,7 @@ namespace Sample.Extension
 
             // Determine whether we should bind to the current parameter
             ParameterInfo parameter = context.Parameter;
-            SampleAttribute attribute = parameter.GetCustomAttribute<SampleAttribute>(inherit: false);
+            SqlQueueAttribute attribute = parameter.GetCustomAttribute<SqlQueueAttribute>(inherit: false);
             if (attribute == null)
             {
                 return Task.FromResult<IBinding>(null);
@@ -40,7 +40,7 @@ namespace Sample.Extension
             if (!ValueBinder.MatchParameterType(context.Parameter, supportedTypes))
             {
                 throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, 
-                    "Can't bind SampleAttribute to type '{0}'.", parameter.ParameterType));
+                    "Can't bind SqlQueueAttribute to type '{0}'.", parameter.ParameterType));
             }
 
             return Task.FromResult<IBinding>(new SampleBinding(parameter));

@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System;
+using Microsoft.Azure.WebJobs.Extensions.SqlQueue;
 using Microsoft.Azure.WebJobs.Host.Config;
-using Sample.Extension;
 
 namespace Microsoft.Azure.WebJobs
 {
-    public static class SampleJobHostConfigurationExtensions
+    public static class SqlQueueJobHostConfigurationExtensions
     {
         public static void UseSample(this JobHostConfiguration config)
         {
@@ -31,8 +31,8 @@ namespace Microsoft.Azure.WebJobs
 
                 // Register our extension binding providers
                 context.Config.RegisterBindingExtensions(
-                    new SampleAttributeBindingProvider(),
-                    new SampleTriggerAttributeBindingProvider());
+                    new SqlQueueAttributeBindingProvider(),
+                    new SqlQueueTriggerAttributeBindingProvider());
             }
         }
     }

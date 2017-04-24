@@ -15,11 +15,11 @@ using Microsoft.Azure.WebJobs.Host.Listeners;
 using Microsoft.Azure.WebJobs.Host.Protocols;
 using Microsoft.Azure.WebJobs.Host.Triggers;
 
-namespace Sample.Extension
+namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 {
-    internal class SampleTriggerAttributeBindingProvider : ITriggerBindingProvider
+    internal class SqlQueueTriggerAttributeBindingProvider : ITriggerBindingProvider
     {
-        public SampleTriggerAttributeBindingProvider()
+        public SqlQueueTriggerAttributeBindingProvider()
         {
             
         }
@@ -31,18 +31,18 @@ namespace Sample.Extension
             }
 
             ParameterInfo parameter = context.Parameter;
-            SampleTriggerAttribute attribute = parameter.GetCustomAttribute<SampleTriggerAttribute>(inherit: false);
+            SqlQueueTriggerAttribute attribute = parameter.GetCustomAttribute<SqlQueueTriggerAttribute>(inherit: false);
             if (attribute == null)
             {
                 return Task.FromResult<ITriggerBinding>(null);
             }
 
             // TODO: Define the types your binding supports here
-            if (parameter.ParameterType != typeof(SampleTriggerValue) &&
+            if (parameter.ParameterType != typeof(SqlQueueTriggerValue) &&
                 parameter.ParameterType != typeof(string))
             {
                 throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture,
-                    "Can't bind SampleTriggerAttribute to type '{0}'.", parameter.ParameterType));
+                    "Can't bind SqlQueueTriggerAttribute to type '{0}'.", parameter.ParameterType));
             }
 
             return Task.FromResult<ITriggerBinding>(new SampleTriggerBinding(context.Parameter));
@@ -66,7 +66,7 @@ namespace Sample.Extension
 
             public Type TriggerValueType
             {
-                get { return typeof(SampleTriggerValue); }
+                get { return typeof(SqlQueueTriggerValue); }
             }
 
             public Task<ITriggerData> BindAsync(object value, ValueBindingContext context)
@@ -74,9 +74,9 @@ namespace Sample.Extension
                 // TODO: Perform any required conversions on the value
                 // E.g. convert from Dashboard invoke string to our trigger
                 // value type
-                SampleTriggerValue triggerValue = value as SampleTriggerValue;
-                IValueBinder valueBinder = new SampleValueBinder(_parameter, triggerValue);
-                return Task.FromResult<ITriggerData>(new TriggerData(valueBinder, GetBindingData(triggerValue)));
+                SqlQueueTriggerValue queueTriggerValue = value as SqlQueueTriggerValue;
+                IValueBinder valueBinder = new SampleValueBinder(_parameter, queueTriggerValue);
+                return Task.FromResult<ITriggerData>(new TriggerData(valueBinder, GetBindingData(queueTriggerValue)));
             }
 
             public Task<IListener> CreateListenerAsync(ListenerFactoryContext context)
@@ -99,7 +99,7 @@ namespace Sample.Extension
                 };
             }
 
-            private IReadOnlyDictionary<string, object> GetBindingData(SampleTriggerValue value)
+            private IReadOnlyDictionary<string, object> GetBindingData(SqlQueueTriggerValue value)
             {
                 Dictionary<string, object> bindingData = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
                 bindingData.Add("SampleTrigger", value);
@@ -112,7 +112,7 @@ namespace Sample.Extension
             private IReadOnlyDictionary<string, Type> CreateBindingDataContract()
             {
                 Dictionary<string, Type> contract = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
-                contract.Add("SampleTrigger", typeof(SampleTriggerValue));
+                contract.Add("SampleTrigger", typeof(SqlQueueTriggerValue));
 
                 // TODO: Add any additional binding contract members
 
@@ -132,7 +132,7 @@ namespace Sample.Extension
             {
                 private readonly object _value;
 
-                public SampleValueBinder(ParameterInfo parameter, SampleTriggerValue value)
+                public SampleValueBinder(ParameterInfo parameter, SqlQueueTriggerValue value)
                     : base(parameter.ParameterType)
                 {
                     _value = value;
@@ -204,7 +204,7 @@ namespace Sample.Extension
                     // invoke the function executor
                     TriggeredFunctionData input = new TriggeredFunctionData
                     {
-                        TriggerValue = new SampleTriggerValue()
+                        TriggerValue = new SqlQueueTriggerValue()
                     };
                     _executor.TryExecuteAsync(input, CancellationToken.None).Wait();
                 }
