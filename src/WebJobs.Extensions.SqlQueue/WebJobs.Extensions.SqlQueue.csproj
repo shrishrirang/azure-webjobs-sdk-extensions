@@ -7,8 +7,8 @@
     <ProjectGuid>{9FBE2E52-B0BC-469B-B609-106DA4E0577F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sample.Extension</RootNamespace>
-    <AssemblyName>Sample.Extension</AssemblyName>
+    <RootNamespace>Microsoft.Azure.WebJobs.Extensions</RootNamespace>
+    <AssemblyName>Microsoft.Azure.WebJobs.Extensions.SqlQueue</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
