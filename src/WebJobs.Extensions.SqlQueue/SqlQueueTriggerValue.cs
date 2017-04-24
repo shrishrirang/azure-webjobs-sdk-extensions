@@ -1,16 +1,21 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-namespace Sample.Extension
+namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 {
-    public class SampleTriggerValue
+    // FIXME: Needed?
+    public class SqlQueueTriggerValue
     {
+        public SqlQueueTriggerValue()
+        {
+            
+        }
         // TODO: Define the default type that your trigger binding
         // binds to (the type representing the trigger event).
 
-        public SampleTriggerValue()
+        public override string ToString()
         {
-            
+            return "FIXME";
         }
     }
 }
