@@ -19,6 +19,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 {
     internal class SqlQueueTriggerAttributeBindingProvider : ITriggerBindingProvider
     {
+
         public SqlQueueTriggerAttributeBindingProvider()
         {
             
@@ -39,7 +40,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 
             // TODO: Define the types your binding supports here
             if (parameter.ParameterType != typeof(SqlQueueTriggerValue) &&
-                parameter.ParameterType != typeof(string))
+                parameter.ParameterType != typeof(object))
             {
                 throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture,
                     "Can't bind SqlQueueTriggerAttribute to type '{0}'.", parameter.ParameterType));
@@ -81,7 +82,8 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 
             public Task<IListener> CreateListenerAsync(ListenerFactoryContext context)
             {
-                return Task.FromResult<IListener>(new Listener(context.Executor));
+                var triggerAttribute = _parameter.GetCustomAttribute<SqlQueueTriggerAttribute>(inherit: false);
+                return Task.FromResult<IListener>(new SqlQueueListener(context.Executor, triggerAttribute));
             }
 
             public ParameterDescriptor ToParameterDescriptor()
@@ -102,7 +104,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
             private IReadOnlyDictionary<string, object> GetBindingData(SqlQueueTriggerValue value)
             {
                 Dictionary<string, object> bindingData = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-                bindingData.Add("SampleTrigger", value);
+                bindingData.Add("MessageValue", value); // FIXME
 
                 // TODO: Add any additional binding data
 
@@ -112,7 +114,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
             private IReadOnlyDictionary<string, Type> CreateBindingDataContract()
             {
                 Dictionary<string, Type> contract = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
-                contract.Add("SampleTrigger", typeof(SqlQueueTriggerValue));
+                contract.Add("MessageValue", typeof(SqlQueueTriggerValue)); // FIXME
 
                 // TODO: Add any additional binding contract members
 
@@ -124,7 +126,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                 public override string GetTriggerReason(IDictionary<string, string> arguments)
                 {
                     // TODO: Customize your Dashboard display string
-                    return string.Format("Sample trigger fired at {0}", DateTime.Now.ToString("o"));
+                    return string.Format("Sql Queue trigger fired at {0}", DateTime.Now.ToString("o"));
                 }
             }
 
@@ -151,62 +153,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
                 public override string ToInvokeString()
                 {
                     // TODO: Customize your Dashboard invoke string
-                    return "Sample";
-                }
-            }
-
-            private class Listener : IListener
-            {
-                private ITriggeredFunctionExecutor _executor;
-                private System.Timers.Timer _timer;
-
-                public Listener(ITriggeredFunctionExecutor executor)
-                {
-                    _executor = executor;
-
-                    // TODO: For this sample, we're using a timer to generate
-                    // trigger events. You'll replace this with your event source.
-                    _timer = new System.Timers.Timer(5 * 1000)
-                    {
-                        AutoReset = true
-                    };
-                    _timer.Elapsed += OnTimer;
-                }
-
-                public Task StartAsync(CancellationToken cancellationToken)
-                {
-                    // TODO: Start monitoring your event source
-                    _timer.Start();
-                    return Task.FromResult(true);
-                }
-
-                public Task StopAsync(CancellationToken cancellationToken)
-                {
-                    // TODO: Stop monitoring your event source
-                    _timer.Stop();
-                    return Task.FromResult(true);
-                }
-
-                public void Dispose()
-                {
-                    // TODO: Perform any final cleanup
-                    _timer.Dispose();
-                }
-
-                public void Cancel()
-                {
-                    // TODO: cancel any outstanding tasks initiated by this listener
-                }
-
-                private void OnTimer(object sender, System.Timers.ElapsedEventArgs e)
-                {
-                    // TODO: When you receive new events from your event source,
-                    // invoke the function executor
-                    TriggeredFunctionData input = new TriggeredFunctionData
-                    {
-                        TriggerValue = new SqlQueueTriggerValue()
-                    };
-                    _executor.TryExecuteAsync(input, CancellationToken.None).Wait();
+                    return "SqlQueue";
                 }
             }
         }

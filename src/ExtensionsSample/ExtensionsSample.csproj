@@ -281,7 +281,7 @@
     <Compile Include="Samples\NotificationHubSamples.cs" />
     <Compile Include="Samples\SampleSamples.cs" />
     <Compile Include="Samples\SendGridSamples.cs" />
-    <Compile Include="Samples\SqlQueueSample.cs" />
+    <Compile Include="Samples\SqlQueueSamples.cs" />
     <Compile Include="Samples\TableSamples.cs" />
     <Compile Include="Samples\TimerSamples.cs" />
     <Compile Include="Samples\TwilioSamples.cs" />
