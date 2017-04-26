@@ -40,7 +40,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
 
             // TODO: Define the types your binding supports here
             if (parameter.ParameterType != typeof(SqlQueueTriggerValue) &&
-                parameter.ParameterType != typeof(object))
+                parameter.ParameterType != typeof(string))
             {
                 throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture,
                     "Can't bind SqlQueueTriggerAttribute to type '{0}'.", parameter.ParameterType));

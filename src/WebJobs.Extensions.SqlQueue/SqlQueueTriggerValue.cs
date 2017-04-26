@@ -11,9 +11,14 @@ namespace Microsoft.Azure.WebJobs.Extensions.SqlQueue
         {
         }
 
-        public object Value { get; set; }
+        public string Value { get; set; }
 
         // TODO: Define the default type that your trigger binding
         // binds to (the type representing the trigger event).
+
+        public override string ToString()
+        {
+            return Value;
+        }
     }
 }

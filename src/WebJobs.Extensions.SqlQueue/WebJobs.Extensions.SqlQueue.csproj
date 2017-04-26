@@ -184,6 +184,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlQueueAttribute.cs" />
     <Compile Include="SqlQueueAttributeBindingProvider.cs" />
+    <Compile Include="SqlQueueExtensionConfig.cs" />
     <Compile Include="SqlQueueJobHostConfigurationExtensions.cs" />
     <Compile Include="SqlQueueListener.cs" />
     <Compile Include="SqlQueueTriggerAttribute.cs" />

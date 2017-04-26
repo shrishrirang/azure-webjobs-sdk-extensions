@@ -2,9 +2,11 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System;
+using Microsoft.Azure.WebJobs.Description;
 
 namespace Microsoft.Azure.WebJobs
 {
+    [Binding]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class SqlQueueAttribute : Attribute
     {

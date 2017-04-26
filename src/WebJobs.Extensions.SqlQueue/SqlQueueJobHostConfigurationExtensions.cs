@@ -13,27 +13,11 @@ namespace Microsoft.Azure.WebJobs
         {
             if (config == null)
             {
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
             }
 
             // Register our extension configuration provider
             config.RegisterExtensionConfigProvider(new SqlQueueExtensionConfig());
-        }
-
-        private class SqlQueueExtensionConfig : IExtensionConfigProvider
-        {
-            public void Initialize(ExtensionConfigContext context)
-            {
-                if (context == null)
-                {
-                    throw new ArgumentNullException("context");
-                }
-
-                // Register our extension binding providers
-                context.Config.RegisterBindingExtensions(
-                    new SqlQueueAttributeBindingProvider(),
-                    new SqlQueueTriggerAttributeBindingProvider());
-            }
         }
     }
 }
