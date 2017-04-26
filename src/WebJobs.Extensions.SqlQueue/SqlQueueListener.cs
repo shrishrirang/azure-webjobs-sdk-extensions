@@ -147,6 +147,15 @@ namespace Microsoft.Azure.WebJobs.Extensions
                             {
                                 // FIXME: Log
                                 transaction.Rollback();
+
+                                // Some Sql calls fail with a SqlException (instead of an OperationCanceledException) when the task is cancelled.
+                                // So we check if the exception is a SqlException and if the task has been canceled already.
+                                // If so, we assume that the SqlException is a result of task cancellation and throw an OperationCanceledException.
+                                if (ex is SqlException)
+                                {
+                                    cancellationToken.ThrowIfCancellationRequested();
+                                }
+
                                 throw;
                             }
                         }
