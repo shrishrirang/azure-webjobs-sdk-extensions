@@ -147,6 +147,7 @@ namespace Microsoft.Azure.WebJobs.Extensions
                             {
                                 // FIXME: Log
                                 transaction.Rollback();
+                                throw;
                             }
                         }
                     }
@@ -191,14 +192,14 @@ namespace Microsoft.Azure.WebJobs.Extensions
                     throw new InvalidOperationException($"Row contains {reader.FieldCount} columns. Expected exactly 1 column to be present");
                 }
 
-                object message;
+                string message;
                 if (await reader.IsDBNullAsync(0, cancellationToken))
                 {
                     message = null;
                 }
                 else
                 {
-                    message = reader.GetValue(0);
+                    message = reader.GetString(0);
                 }
 
                 TriggeredFunctionData triggerData = new TriggeredFunctionData
