@@ -59,7 +59,15 @@ namespace Microsoft.Azure.WebJobs
 
                 if (_config.ScheduleMonitor == null)
                 {
-                    _config.ScheduleMonitor = new StorageScheduleMonitor(context.Config, context.Trace);
+                    // TODO: Come up with a better way to check for standalone mode. Also, review whether to use FileSystemScheduleMonitor for standalone mode
+                    if (String.CompareOrdinal(Environment.GetEnvironmentVariable("AzureWebJobsScriptMode"), "standalone") == 0)
+                    {
+                        _config.ScheduleMonitor = new FileSystemScheduleMonitor();
+                    }
+                    else
+                    {
+                        _config.ScheduleMonitor = new StorageScheduleMonitor(context.Config, context.Trace);
+                    }
                 }
 
                 context.Config.RegisterBindingExtension(new TimerTriggerAttributeBindingProvider(_config, context.Config.NameResolver, context.Trace));
