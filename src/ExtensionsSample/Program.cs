@@ -33,6 +33,7 @@ namespace ExtensionsSample
             config.UseFiles(filesConfig);
             config.UseTimers();
             config.UseSample();
+            config.UseSqlQueue();
             config.UseMobileApps();
             config.UseCore();
             config.UseDocumentDB();
@@ -60,6 +61,7 @@ namespace ExtensionsSample
                 typeof(FileSamples),
                 typeof(MiscellaneousSamples),
                 typeof(SampleSamples),
+                typeof(SqlQueueSamples),
                 typeof(TableSamples),
                 typeof(TimerSamples));
 
