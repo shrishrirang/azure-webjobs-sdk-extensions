@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1118E0AD-83C8-4B67-859B-FCDEF54338C1}"
 EndProject
@@ -36,6 +36,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJobs.Extensions.Twilio", "src\WebJobs.Extensions.Twilio\WebJobs.Extensions.Twilio.csproj", "{65563C23-75B9-4F48-93E0-9A9FA2141CF9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJobs.Extensions.Http", "src\WebJobs.Extensions.Http\WebJobs.Extensions.Http.csproj", "{DF43FC36-FDFC-42C4-9A40-233E247D4A24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJobs.Extensions.SqlQueue", "src\WebJobs.Extensions.SqlQueue\WebJobs.Extensions.SqlQueue.csproj", "{9FBE2E52-B0BC-469B-B609-106DA4E0577F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{DF43FC36-FDFC-42C4-9A40-233E247D4A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF43FC36-FDFC-42C4-9A40-233E247D4A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF43FC36-FDFC-42C4-9A40-233E247D4A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FBE2E52-B0BC-469B-B609-106DA4E0577F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FBE2E52-B0BC-469B-B609-106DA4E0577F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FBE2E52-B0BC-469B-B609-106DA4E0577F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FBE2E52-B0BC-469B-B609-106DA4E0577F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,5 +114,9 @@ Global
 		{C4D2E330-8FB9-4D2B-9DB5-274FBFB69D69} = {1118E0AD-83C8-4B67-859B-FCDEF54338C1}
 		{65563C23-75B9-4F48-93E0-9A9FA2141CF9} = {1118E0AD-83C8-4B67-859B-FCDEF54338C1}
 		{DF43FC36-FDFC-42C4-9A40-233E247D4A24} = {1118E0AD-83C8-4B67-859B-FCDEF54338C1}
+		{9FBE2E52-B0BC-469B-B609-106DA4E0577F} = {1118E0AD-83C8-4B67-859B-FCDEF54338C1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4244D516-89AB-4972-82DB-F24F0F8186B3}
 	EndGlobalSection
 EndGlobal
