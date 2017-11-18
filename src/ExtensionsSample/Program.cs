@@ -33,11 +33,11 @@ namespace ExtensionsSample
             config.UseFiles(filesConfig);
             config.UseTimers();
             config.UseSample();
-            config.UseSqlQueue();
             config.UseMobileApps();
             config.UseCore();
             config.UseDocumentDB();
             config.UseNotificationHubs();
+            config.UseSqlQueue();
 
             var sendGridConfiguration = new SendGridConfiguration()
             {
@@ -63,6 +63,7 @@ namespace ExtensionsSample
                 typeof(SampleSamples),
                 typeof(SqlQueueSamples),
                 typeof(TableSamples),
+                typeof(SqlQueueSamples),
                 typeof(TimerSamples));
 
             host.Call(typeof(MiscellaneousSamples).GetMethod("ExecutionContext"));
