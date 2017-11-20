@@ -59,7 +59,14 @@ namespace Microsoft.Azure.WebJobs
 
                 if (_config.ScheduleMonitor == null)
                 {
-                    _config.ScheduleMonitor = new StorageScheduleMonitor(context.Config, context.Trace);
+                    if (String.CompareOrdinal(Environment.GetEnvironmentVariable("AzureWebJobsScriptMode"), "standalone") == 0)
+                    {
+                        _config.ScheduleMonitor = new FileSystemScheduleMonitor();
+                    }
+                    else
+                    {
+                        _config.ScheduleMonitor = new StorageScheduleMonitor(context.Config, context.Trace);
+                    }
                 }
 
                 context.Config.RegisterBindingExtension(new TimerTriggerAttributeBindingProvider(_config, context.Config.NameResolver, context.Trace));
