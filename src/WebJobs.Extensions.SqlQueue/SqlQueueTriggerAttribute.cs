@@ -16,10 +16,22 @@ namespace Microsoft.Azure.WebJobs
         public SqlQueueTriggerAttribute()
         {
             MessageDataType = "VarChar(Max)"; // default message data type
-            ConnectionString = AmbientConnectionStringProvider.Instance.GetConnectionString(ConnectionStringName);
         }
 
-        public string ConnectionString { get; private set; }
+        public string ConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Connection))
+                {
+                    return AmbientConnectionStringProvider.Instance.GetConnectionString(ConnectionStringName);
+                }
+
+                return Environment.GetEnvironmentVariable(Connection);
+            }
+        }
+
+        public string Connection { get; set;  }
 
         public string DatabaseName { get; set; }
 
