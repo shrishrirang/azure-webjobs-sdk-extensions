@@ -37,8 +37,6 @@ namespace Microsoft.Azure.WebJobs
 
         public string QueueName { get; set; }
 
-        public string ContractName { get; set; }
-
         public string MessageDataType { get; set; }
     }
 }

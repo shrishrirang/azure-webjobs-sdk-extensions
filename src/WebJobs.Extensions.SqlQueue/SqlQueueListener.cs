@@ -227,7 +227,7 @@ namespace Microsoft.Azure.WebJobs.Extensions
 
         private void InitializeReadQueueCommand(SqlCommand command, SqlTransaction transaction)
         {
-            command.CommandText = $"WAITFOR (RECEIVE TOP({MessageBatchSize}) CONVERT({_triggerAttribute.MessageDataType}, message_body) AS {_triggerAttribute.ContractName} FROM {_triggerAttribute.QueueName}), TIMEOUT {ReadWaitPeriod}";
+            command.CommandText = $"WAITFOR (RECEIVE TOP({MessageBatchSize}) CONVERT({_triggerAttribute.MessageDataType}, message_body) FROM {_triggerAttribute.QueueName}), TIMEOUT {ReadWaitPeriod}";
             command.CommandType = CommandType.Text;
             command.Transaction = transaction;
         }
